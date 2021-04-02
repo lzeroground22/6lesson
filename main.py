@@ -23,3 +23,12 @@ class Mentor:
         else:
             return 'Ошибка'
 
+
+class Lecturer(Mentor):
+    def grade_collect(self):
+        pass
+
+
+class Reviewer(Mentor):
+    def grade_collect(self):
+        pass
