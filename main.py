@@ -5,11 +5,19 @@ def unlist(some):
     return list(chain.from_iterable(some.values()))
 
 
-# def get_number_of_elements(some):
-#     count = 0
-#     for element in some:
-#         count += 1
-#     return count
+def equal(some):
+    """
+    Среднее значение
+    """
+    return sum(unlist(some)) / len(unlist(some))
+
+
+def __lt__(self, other):
+    """
+    Сравнение средних значений
+    """
+    return equal(self.rating) < equal(other.rating)
+
 
 
 class Student:
@@ -34,7 +42,7 @@ class Student:
     def __str__(self):
         print("Имя", self.name)
         print("Фамилия", self.surname)
-        print('Средняя оценка за домашние задания: ', sum(unlist(self.hw_grades)) / len(unlist(self.hw_grades)))
+        print('Средняя оценка за домашние задания: ', equal(self.hw_grades))
         print("Курсы в процессе изучения:", ", ".join(self.courses_in_progress))
         print("Завершенные курсы:", ", ".join(self.finished_courses))
 
@@ -58,7 +66,7 @@ class Lecturer(Mentor):
     def __str__(self):
         print("Имя", self.name)
         print("Фамилия", self.surname)
-        print('Средняя оценка за лекции: ', sum(unlist(self.rating)) / len(unlist(self.rating)))
+        print('Средняя оценка за лекции: ', equal(self.rating))
 
 
 class Reviewer(Mentor):
@@ -78,9 +86,6 @@ class Reviewer(Mentor):
     def __str__(self):
         print("Имя", self.name)
         print("Фамилия", self.surname)
-
-
-
 
 
 # ___________________________________________
@@ -120,14 +125,17 @@ pasha.set_rating(serov, "python", 2)
 artem.set_rating(semenov, "git", 9)
 artem.set_rating(serov, "git", 4)
 
-semenov.__str__()
-print()
-serov.__str__()
-print()
+# semenov.__str__()
+# print()
+# serov.__str__()
+# print()
 # vodkin.__str__()
 # print()
 # batina.__str__()
 # print()
-pasha.__str__()
-print()
-artem.__str__()
+# pasha.__str__()
+# print()
+# artem.__str__()
+
+# print(equal(serov.rating))
+# print(semenov < serov)
