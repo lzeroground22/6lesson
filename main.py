@@ -5,6 +5,13 @@ def unlist(some):
     return list(chain.from_iterable(some.values()))
 
 
+def get_number_of_elements(some):
+    count = 0
+    for element in some:
+        count += 1
+    return count
+
+
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -24,20 +31,17 @@ class Student:
         else:
             return "Ошибка"
 
-
     def __str__(self):
         print("Имя", self.name)
         print("Фамилия", self.surname)
         home_w = unlist(self.hw_grades)
         print('Средняя оценка за лекции: ', sum(home_w) / (len(home_w) + 1))
         print("Курсы в процессе изучения:", ", ".join(self.courses_in_progress))
-        count = 0
-        for element in self.finished_courses:
-            count += 1
-        if count > 1:
+        if get_number_of_elements(self.courses_in_progress) > 1:
             print("Завершенные курсы:", ", ".join(self.finished_courses))
         else:
             print("Завершенный курс:", self.finished_courses)
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -89,7 +93,7 @@ pasha.finished_courses = "Java", "Mar"
 # Студент 2
 artem = Student("Artem", "Ivanov", "male")
 artem.courses_in_progress = "git"
-artem.finished_courses = "git"
+artem.finished_courses = "git", "JS"
 
 # Лектор 1
 semenov = Lecturer("Sergei", "Semenov")
@@ -115,7 +119,6 @@ pasha.set_rating(serov, "python", 2)
 
 artem.set_rating(semenov, "git", 9)
 artem.set_rating(serov, "git", 4)
-
 
 # semenov.__str__()
 # serov.__str__()
