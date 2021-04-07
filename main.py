@@ -5,11 +5,11 @@ def unlist(some):
     return list(chain.from_iterable(some.values()))
 
 
-def get_number_of_elements(some):
-    count = 0
-    for element in some:
-        count += 1
-    return count
+# def get_number_of_elements(some):
+#     count = 0
+#     for element in some:
+#         count += 1
+#     return count
 
 
 class Student:
@@ -34,13 +34,9 @@ class Student:
     def __str__(self):
         print("Имя", self.name)
         print("Фамилия", self.surname)
-        home_w = unlist(self.hw_grades)
-        print('Средняя оценка за лекции: ', sum(home_w) / (len(home_w) + 1))
+        print('Средняя оценка за домашние задания: ', sum(unlist(self.hw_grades)) / len(unlist(self.hw_grades)))
         print("Курсы в процессе изучения:", ", ".join(self.courses_in_progress))
-        if get_number_of_elements(self.courses_in_progress) > 1:
-            print("Завершенные курсы:", ", ".join(self.finished_courses))
-        else:
-            print("Завершенный курс:", self.finished_courses)
+        print("Завершенные курсы:", ", ".join(self.finished_courses))
 
 
 class Mentor:
@@ -62,8 +58,7 @@ class Lecturer(Mentor):
     def __str__(self):
         print("Имя", self.name)
         print("Фамилия", self.surname)
-        rates = unlist(self.rating)
-        print('Средняя оценка за лекции: ', sum(rates) / (len(rates) + 1))
+        print('Средняя оценка за лекции: ', sum(unlist(self.rating)) / len(unlist(self.rating)))
 
 
 class Reviewer(Mentor):
@@ -85,6 +80,10 @@ class Reviewer(Mentor):
         print("Фамилия", self.surname)
 
 
+
+
+
+# ___________________________________________
 # Студент 1
 pasha = Student("Pasha", "Pupkin", "male")
 pasha.courses_in_progress = "git", "python"
@@ -92,8 +91,8 @@ pasha.finished_courses = "Java", "Mar"
 
 # Студент 2
 artem = Student("Artem", "Ivanov", "male")
-artem.courses_in_progress = "git"
-artem.finished_courses = "git", "JS"
+artem.courses_in_progress = "git",
+artem.finished_courses = "JS",
 
 # Лектор 1
 semenov = Lecturer("Sergei", "Semenov")
@@ -107,12 +106,13 @@ serov.courses_attached = ["git", "python"]
 vodkin = Reviewer("Petr", "Vodkin")
 vodkin.courses_attached = "git"
 vodkin.rate_hw(pasha, "git", 8)
+vodkin.rate_hw(artem, "git", 4)
 
 # Проверяющий 2
 batina = Reviewer("Masha", "Batina")
 batina.courses_attached = "python"
 batina.rate_hw(artem, "git", 6)
-batina.rate_hw(pasha, "git", 10)
+batina.rate_hw(pasha, "python", 10)
 
 pasha.set_rating(semenov, "git", 3)
 pasha.set_rating(serov, "python", 2)
@@ -120,8 +120,14 @@ pasha.set_rating(serov, "python", 2)
 artem.set_rating(semenov, "git", 9)
 artem.set_rating(serov, "git", 4)
 
-# semenov.__str__()
-# serov.__str__()
+semenov.__str__()
+print()
+serov.__str__()
+print()
+# vodkin.__str__()
+# print()
 # batina.__str__()
+# print()
 pasha.__str__()
+print()
 artem.__str__()
