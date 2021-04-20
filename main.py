@@ -12,14 +12,6 @@ def equal(some):
     return sum(unlist(some)) / len(unlist(some))
 
 
-def __lt__(self, other):
-    """
-    Сравнение средних значений
-    """
-    return equal(self.rating) < equal(other.rating)
-
-
-
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -46,6 +38,12 @@ class Student:
         print("Курсы в процессе изучения:", ", ".join(self.courses_in_progress))
         print("Завершенные курсы:", ", ".join(self.finished_courses))
 
+    def __lt__(self, other):
+        """
+        Сравнение средних значений по ДЗ
+        """
+        return equal(self.hw_grades) < equal(other.hw_grades)
+
 
 class Mentor:
     def __init__(self, name, surname):
@@ -67,6 +65,12 @@ class Lecturer(Mentor):
         print("Имя", self.name)
         print("Фамилия", self.surname)
         print('Средняя оценка за лекции: ', equal(self.rating))
+
+    def __lt__(self, other):
+        """
+        Сравнение средних значений за лекции
+        """
+        return equal(self.rating) < equal(other.rating)
 
 
 class Reviewer(Mentor):
@@ -137,5 +141,7 @@ artem.set_rating(serov, "git", 4)
 # print()
 # artem.__str__()
 
-# print(equal(serov.rating))
-# print(semenov < serov)
+print(pasha < artem)
+print(semenov > serov)
+
+
